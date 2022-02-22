@@ -6,23 +6,28 @@
 
 <div class="box1">
 
-    <% for(var count=0; count<newlistItems.length; count++ ){ %>
+    <% for(var i=0;i<newlistItems.length;i++) {%>
+    <form action="/delete" method="post">
         <div class="item">
-            <input type="checkbox">
-            <p> <%= newlistItems[count] %> </p>
+            <input type="checkbox" onchange="this.form.submit()" name="checkbox" value="<%=newlistItems[i]._id%>">
+            <p> <%= newlistItems[i].name %> </p>
         </div>
-    <%} %>
+        <input type="hidden" name="listName" value="<%= listTitle %> ">
+    </form>
+    <% } %>
+
+
 
     <form class="item" action="/" method="post">
         <input type="text" name="newItem" placeholder="New Item" value="" autocomplete="off">
 
-        <button type="submit" name="list" class="button-29" value=<%= listTitle %> >+</button>
+        <button type="submit" name="list" class="button-29" value="<%= listTitle %>"">+</button>
     </form>
 
 </div>
 
 <form action="/reset" method="post">
 
-    <button type="submit" name="list" class="button-29">reset!</button>
-</form>
-<%- include("footer") -%>
+            <button type="submit" name="list" class="button-29">reset!</button>
+    </form>
+    <%- include("footer") -%>

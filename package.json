@@ -12,7 +12,9 @@
     "ejs": "^2.6.2",
     "express": "^4.17.2",
     "jquery": "^3.6.0",
-    "nodemon": "^1.19.1"
+    "lodash": "^4.17.21",
+    "mongoose": "^6.2.2",
+    "nodemon": "^2.0.15"
   },
   "description": ""
 }
