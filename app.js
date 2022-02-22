@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
-mongoose.connect("mongodb+srv://vansh_7071:<password>@cluster0.oomzj.mongodb.net/todoDB", {
+mongoose.connect("mongodb+srv://vansh_7071:jZkUwBCptg9JFA4@cluster0.oomzj.mongodb.net/todoDB", {
     useNewUrlParser: true
 });
 
@@ -116,27 +116,34 @@ app.post("/delete", function (req, res) {
     const itemRmId = req.body.checkbox;
     const rmList = req.body.listName;
 
-    if(rmList===date){
+    if (rmList === date) {
         Item.findByIdAndRemove(itemRmId, function (error) {
 
-        if (error) {
-            console.log(error);
-        } else {
-            console.log("successfully deleted one item");
-        }
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("successfully deleted one item");
+            }
 
-    });
+        });
 
-    res.redirect("/");
-    }
-    else{
-        List.findOneAndUpdate({name:rmList},{$pull: {items:{_id:itemRmId}}},function(error,foundList){
-            if(!error){
-                res.redirect("/"+rmList);
+        res.redirect("/");
+    } else {
+        List.findOneAndUpdate({
+            name: rmList
+        }, {
+            $pull: {
+                items: {
+                    _id: itemRmId
+                }
+            }
+        }, function (error, foundList) {
+            if (!error) {
+                res.redirect("/" + rmList);
             }
         })
     }
-    
+
 });
 
 app.get("/:customName", function (req, res) {
@@ -169,7 +176,8 @@ app.get("/:customName", function (req, res) {
 });
 
 window.onbeforeunload = closingCode;
-function closingCode(){
+
+function closingCode() {
     mongoose.connection.db.dropDatabase(function (err, result) {
         if (err) {
             console.log(err);
@@ -177,9 +185,15 @@ function closingCode(){
             console.log("database deleted");
         }
     });
-   return null;
+    return null;
 }
 
-app.listen(5000, function () {
-    console.log('server started on port 5000');
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
+app.listen(port, function () {
+    console.log('server started successfully');
 });
