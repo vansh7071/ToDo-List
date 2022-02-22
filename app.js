@@ -175,18 +175,6 @@ app.get("/:customName", function (req, res) {
     })
 });
 
-window.onbeforeunload = closingCode;
-
-function closingCode() {
-    mongoose.connection.db.dropDatabase(function (err, result) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("database deleted");
-        }
-    });
-    return null;
-}
 
 
 let port = process.env.PORT;
