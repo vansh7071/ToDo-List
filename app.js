@@ -1,8 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const date = require(__dirname + "/date.js")
+const express = require('express');
+const bodyParser = require('body-parser');
+const date = require(__dirname + "/date.js");
 var $ = require("jquery");
-const app = express()
+const app = express();
 const mongoose = require("mongoose");
 const _ = require("lodash");
 
@@ -106,6 +106,7 @@ app.post("/reset", function (req, res) {
             console.log(err);
         } else {
             console.log("database deleted");
+            
         }
     });
 
@@ -114,9 +115,9 @@ app.post("/reset", function (req, res) {
 
 app.post("/delete", function (req, res) {
     const itemRmId = req.body.checkbox;
-    const rmList = req.body.listName;
+    const rmList = req.body.listName1;
 
-    if (rmList === date) {
+    if (rmList === day) {
         Item.findByIdAndRemove(itemRmId, function (error) {
 
             if (error) {
@@ -156,7 +157,7 @@ app.get("/:customName", function (req, res) {
         if (!error) {
             if (!foundList) {
                 //create a list
-                console.log("exist");
+                
                 const listnew = new List({
                     name: customName,
                     items: ourItems
